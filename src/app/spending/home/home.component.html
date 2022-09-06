@@ -209,26 +209,13 @@
       <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
         <div class="row">
-          <div class="col-lg-3 col-6 animated bounceInLeft">
+
+          <div class="col-lg-3 col-6 animated bounceInRight"  data-toggle="modal" data-target="#Wallet">
             <!-- small box -->
             <div class="small-box bg-1">
               <div class="inner">
-                <h3>8</h3>
-                <p>Members</p>
-              </div>
-              <div class="icon">
-                <i class="fa fa-user fa-2x"></i>
-              </div>
-            </div>
-          </div>
-          <!-- ./col -->
-          <!-- ./col -->
-          <div class="col-lg-3 col-6 animated bounceInRight">
-            <!-- small box -->
-            <div class="small-box bg-3">
-              <div class="inner">
                 <h3>20,000</h3>
-                <p>Income</p>
+                <p>Số Dư </p>
               </div>
               <div class="icon">
                 <i class="fa fa-money-bill fa-2x"></i>
@@ -236,14 +223,14 @@
             </div>
           </div>
           <!-- ./col -->
-          <div class="col-lg-3 col-6 animated rubberBand">
+          <div class="col-lg-3 col-6 animated rubberBand" >
             <!-- small box -->
             <div class="small-box bg-2">
               <div class="inner">
                 <h3>20,000</h3>
-                <p>Expenses</p>
+                <p>Tiêu dùng trong tháng</p>
               </div>
-              <div class="icon">
+              <div class="icon" >
                 <i class="fa fa-money-bill fa-2x"></i>
               </div>
             </div>
@@ -271,6 +258,30 @@
 </div>
 <!-- ./wrapper -->
 <!-- jQuery -->
+
+<div id="Wallet" class="modal animated rubberBand delete-modal" role="dialog">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body text-center">
+        <form >
+          <div class="card-header">
+            <span class="fa fa-user"> Thêm Tiền Vào Ví</span>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <input formControlName="name" type="text" class="form-control" >
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <button type="submit" class="btn btn-primary">Thêm</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 
 </body>
 

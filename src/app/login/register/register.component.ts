@@ -3,6 +3,7 @@ import {Router} from "@angular/router";
 import {LoginserviceService} from "../../service/loginservice.service";
 import {FormArray, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ScriptService} from "../../service/script.service";
+import {WalletService} from "../../service/wallet.service";
 
 @Component({
   selector: 'app-register',
@@ -12,7 +13,7 @@ import {ScriptService} from "../../service/script.service";
 export class RegisterComponent implements OnInit {
   checkuserr: boolean = false;
 
-  constructor(private service: LoginserviceService, private script: ScriptService, private router: Router) {
+  constructor(private service: LoginserviceService, private script: ScriptService, private router: Router, private  wallservic: WalletService) {
   }
 
   ngOnInit(): void {
@@ -28,6 +29,9 @@ export class RegisterComponent implements OnInit {
     })])
   })
   roles = this.regisiterForm.get('roles') as FormArray;
+
+
+
 
   register() {
     this.roles.value[0].id = this.roles.value[0].id == 2 ? 2 : 3
@@ -56,14 +60,27 @@ export class RegisterComponent implements OnInit {
           if (this.regisiterForm.valid) {
             this.service.register(this.regisiterForm.value).subscribe((data) => {
              alert("Tao tai khoan thanh cong")
+              this.service.setUser(data);
               this.router.navigate([""]);
-
+              this.createwallet();
             })
           }
-
         }
       }
     )
+  }
+
+  createwallet(){
+    let wallet = {
+      money: 0,
+      user: {
+        id: this.service.getUser().id
+      }
+    }
+    this.wallservic.create(wallet).subscribe((data) => {
+      alert("Thêm Ví Thành Công")
+      this.router.navigate([""]);
+    })
   }
 
 

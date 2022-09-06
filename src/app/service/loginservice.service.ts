@@ -38,8 +38,15 @@ export class LoginserviceService {
     localStorage.setItem("userToken",JSON.stringify(userToken));
   }
 
+  setUser(userToken: UserToken){
+    localStorage.setItem("userwallet",JSON.stringify(userToken));
+  }
+
   getUserToken(): UserToken{
     return JSON.parse(<string>localStorage.getItem("userToken"));
+  }
+  getUser(): UserToken{
+    return JSON.parse(<string>localStorage.getItem("userwallet"));
   }
   checkrole(){
     let userToken = this.getUserToken();
