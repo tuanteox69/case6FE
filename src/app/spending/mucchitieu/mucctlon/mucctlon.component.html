@@ -240,8 +240,8 @@
                       <div class="form-group">
                         <label>Tên Mục</label>
                         <input formControlName="name" type="text" class="form-control">
-                        <p *ngIf="!Formspen.get('name')?.valid && Formspen.get('name')?.touched "
-                           style="color: red;margin-left: 25px">Không được để trống</p>
+                        <p id="createmct" *ngIf="!Formspen.get('name')?.valid " style="color: red;margin-left: 25px; display: none">Không được để trống</p>
+                        <p id="checknamemct" style="color: red;margin-left: 25px; display: none">Ten muc chi tieu da ton tai</p>
                       </div>
                     </div>
                   </div>

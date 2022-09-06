@@ -44,22 +44,37 @@ export class MucctlonComponent implements OnInit, OnChanges {
   })
 
   creatspending() {
-    let spen = {
-      name: this.Formspen.value.name,
-      user: {
-        id: this.Formspen.value.iduser
-      }
-    }
+
     if (this.Formspen.valid) {
-      this.spendingService.create(spen).subscribe((data) => {
-        this.Formspen = new FormGroup({
-          name: new FormControl('', Validators.required),
-          iduser: new FormControl(this.loginService.getUserToken().id)
-        })
-        this.showspending()
+      this.spendingService.checkname(this.Formspen.value.name).subscribe((data) => {
+        if (data != null){
+          // @ts-ignore
+          document.getElementById("checknamemct").style.display = "block"
+        }else {
+          this.checkname()
+        }
       })
+    }else {
+      // @ts-ignore
+      document.getElementById("createmct").style.display = "block"
     }
   }
+
+checkname(){
+  let spen = {
+    name: this.Formspen.value.name,
+    user: {
+      id: this.Formspen.value.iduser
+    }
+  }
+  this.spendingService.create(spen).subscribe((data) => {
+    this.Formspen = new FormGroup({
+      name: new FormControl('', Validators.required),
+      iduser: new FormControl(this.loginService.getUserToken().id)
+    })
+    this.showspending()
+  })
+}
 
 
   showspending() {

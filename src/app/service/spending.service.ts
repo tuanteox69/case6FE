@@ -25,5 +25,11 @@ export class SpendingService {
     return this.http.get<any>("http://localhost:8080/spendingGoal/detail/"+id);
   }
 
+  checkname(name: any): Observable<any >{
+    return this.http.get<any>("http://localhost:8080/spendingGoal/check/"+name);
+  }
+
+
+
 
 }
