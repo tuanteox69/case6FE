@@ -5,12 +5,14 @@ import { SpendingRoutingModule } from './spending-routing.module';
 import { HomeComponent } from './home/home.component';
 import { MucctlonComponent } from './mucchitieu/mucctlon/mucctlon.component';
 import {ReactiveFormsModule} from "@angular/forms";
+import { ProfileComponent } from './profile/profile.component';
 
 
 @NgModule({
   declarations: [
     HomeComponent,
-    MucctlonComponent
+    MucctlonComponent,
+    ProfileComponent
   ],
     imports: [
         CommonModule,

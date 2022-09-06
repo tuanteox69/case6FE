@@ -47,17 +47,15 @@
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary" style="background-color: rgba(62,88,113);">
     <!-- Brand Logo -->
-    <a href="index.html" class="brand-link animated swing">
-      <img src="../asset/img/logo1.png" alt="DSMS Logo" width="200">
-    </a>
+
     <!-- Sidebar -->
-    <div class="sidebar" style="margin-top: -40px;">
+    <div class="sidebar" style="margin-top: 27px;">
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
             data-accordion="false">
           <li class="nav-item animated bounceInLeft">
-            <a href="index.html" class="nav-link">
+            <a routerLink="/spending" class="nav-link">
               <i class="nav-icon fa fa-tachometer-alt"></i>
               <p>
                 Dashboard
@@ -65,18 +63,18 @@
             </a>
           </li>
           <li class="nav-item animated bounceInRight">
-            <a href="#" class="nav-link">
+            <a class="nav-link">
               <i class="nav-icon fas fa-home"></i>
               <p>
-                Barangay
+                Mục Chi Tiêu
               </p>
               <i class="right fas fa-angle-left"></i>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="manage-barangay.html" class="nav-link">
+                <a routerLink="/spending/mctl" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Manage Barangay</p>
+                  <p>Các Mục Chi Tiêu </p>
                 </a>
               </li>
               <li class="nav-item">
@@ -210,12 +208,7 @@
         <div class="row mb-2">
 
           <!-- /.col -->
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Barangay Officers</li>
-            </ol>
-          </div>
+
           <!-- /.col -->
         </div>
         <!-- /.row -->
@@ -228,65 +221,99 @@
       <div class="card card-info">
         <div class="card-header">
           <h3 class="card-title">Mục Chi Tiết</h3>
+
         </div>
+        <a class="btn btn-sm btn-success" data-toggle="modal" data-target="#add"
+           style="margin-top: 20px; width: 300px"><i class="fa fa-pen">add thu muc</i></a>
         <!-- /.card-header -->
         <!-- form start -->
-
-          <div class="card-body">
-            <div class="row">
-              <div class="col-md-3">
-                <form [formGroup]="Formspen"  (submit)="creatspending()">
-                <div class="card-header">
-                  <span class="fa fa-user"> Thêm Mục Chi Tiêu</span>
-                </div>
-                <div class="row">
-                  <div class="col-md-12">
-                    <div class="form-group">
-                      <label>Tên Mục</label>
-                      <input formControlName="name" type="text" class="form-control" >
-                      <p *ngIf="!Formspen.get('name')?.valid && Formspen.get('name')?.touched "
-                         style="color: red;margin-left: 25px">Không được để trống</p>
+        <div id="add" class="modal animated rubberBand delete-modal" role="dialog">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-body text-center">
+                <form [formGroup]="Formspen" (submit)="creatspending()">
+                  <div class="card-header">
+                    <span class="fa fa-user"> Thêm Mục Chi Tiêu</span>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label>Tên Mục</label>
+                        <input formControlName="name" type="text" class="form-control">
+                        <p *ngIf="!Formspen.get('name')?.valid && Formspen.get('name')?.touched "
+                           style="color: red;margin-left: 25px">Không được để trống</p>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div class="card-footer">
-                  <button type="submit" class="btn btn-primary">Save</button>
-                </div>
-                   </form>
-      </div>
+                  <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-5" >
+              <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                  <th class="col-md-1">#</th>
+                  <th class="col-md-9">Mục Chi Tiêu</th>
+                  <th>Action</th>
+                </tr>
+                </thead>
+                <tbody *ngFor="let s of spendinggoal; index as i">
+                <tr>
+                  <td>{{i + 1}}</td>
+                  <td>{{s.name}}</td>
+                  <td class="text-right">
+                    <a class="btn btn-sm btn-success" data-toggle="modal" data-target="#edit"
+                       (click)="showedit(s.id)"><i class="fa fa-pen"></i></a>
+                    <a class="btn btn-sm btn-danger" href="#" data-toggle="modal" data-target="#delete"><i
+                      class="fa fa-trash"></i></a>
+                  </td>
+                </tr>
 
-      <div class="col-md-9" style="border-left: 1px solid #ddd;">
-        <table id="example1" class="table table-bordered table-striped">
-          <thead>
-          <tr>
-            <th class="col-md-1">#</th>
-            <th class="col-md-9">Mục Chi Tiêu</th>
-            <th>Action</th>
-          </tr>
-          </thead>
-          <tbody *ngFor="let s of spendinggoal; index as i">
-          <tr>
-            <td>{{i+1}}</td>
-            <td>{{s.name}}</td>
-            <td class="text-right">
-              <a class="btn btn-sm btn-success" data-toggle="modal" data-target="#edit" (click)="showedit(s.id)" ><i class="fa fa-pen"></i></a>
-              <a class="btn btn-sm btn-danger" href="#" data-toggle="modal" data-target="#delete"><i
-                class="fa fa-trash"></i></a>
-            </td>
-          </tr>
+                </tbody>
+              </table>
+            </div>
 
-          </tbody>
-        </table>
+            <div class="col-md-7" style="border-left: 1px solid #ddd;">
+              <table id="example" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                  <th class="col-md-1">#</th>
+                  <th class="col-md-9">Mục Chi Tiêu</th>
+                  <th>Action</th>
+                </tr>
+                </thead>
+                <tbody *ngFor="let s of spendinggoal; index as i">
+                <tr>
+                  <td>{{i + 1}}</td>
+                  <td>{{s.name}}</td>
+                  <td class="text-right">
+                    <a class="btn btn-sm btn-success" data-toggle="modal" data-target="#edit"
+                       (click)="showedit(s.id)"><i class="fa fa-pen"></i></a>
+                    <a class="btn btn-sm btn-danger" href="#" data-toggle="modal" data-target="#delete"><i
+                      class="fa fa-trash"></i></a>
+                  </td>
+                </tr>
+
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+        </div>
+
       </div>
+      <!-- /.card-body -->
     </div>
   </div>
-
-</div>
-<!-- /.card-body -->
-</div>
-</div>
-<!-- /.container-fluid -->
-<!-- /.content -->
+  <!-- /.container-fluid -->
+  <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
 <!-- ./wrapper -->
@@ -310,9 +337,9 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-body text-center">
-        <form [formGroup]="FormspenEdit"  (submit)="editspending()">
-        <h4>Name</h4>
-        <input formControlName="name"  >
+        <form [formGroup]="FormspenEdit" (submit)="editspending()">
+          <h4>Name</h4>
+          <input formControlName="name">
           <div class="m-t-20"><a href="#" class="btn btn-white" data-dismiss="modal">Close</a>
             <button type="submit" data-dismiss="modal" class="btn btn-warning">Edit</button>
           </div>
